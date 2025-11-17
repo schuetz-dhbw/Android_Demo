@@ -11,6 +11,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import de.dhbw.heidenheim.schuetz.simplenavigation.ui.HomeRoute
+import de.dhbw.heidenheim.schuetz.simplenavigation.ui.HomeScreenContent
+import de.dhbw.heidenheim.schuetz.simplenavigation.ui.ProfileRoute
+import de.dhbw.heidenheim.schuetz.simplenavigation.ui.ProfileScreenContent
+import de.dhbw.heidenheim.schuetz.simplenavigation.ui.SettingsRoute
+import de.dhbw.heidenheim.schuetz.simplenavigation.ui.SettingsScreenContent
 import de.dhbw.heidenheim.schuetz.simplenavigation.ui.theme.SimpleNavigationTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,11 +29,21 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SimpleNavigationTheme {
+
+                val navController = rememberNavController()
+
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                    // NavHost definiert alle Screens und alle verfügbaren Routen
+                    // Registrierung der Screens via composable<ScreenType>
+                    NavHost(
+                        navController = navController,
+                        startDestination = HomeRoute,
                         modifier = Modifier.padding(innerPadding)
-                    )
+                    ) {
+                        composable<HomeRoute> {
+                            HomeScreenContent(navController = navController)
+                        }
+                    }
                 }
             }
         }
