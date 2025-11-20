@@ -49,12 +49,11 @@ class MainActivity : ComponentActivity() {
                             // Holt die übergebenen Elemente
                             val profile = backStackEntry.toRoute<ProfileRoute>()
                             ProfileScreenContent(
-                                navController = navController,
                                 name = profile.name
                             )
                         }
                         composable<SettingsRoute> {
-                            SettingsScreenContent(navController = navController)
+                            SettingsScreenContent()
                         }
                     }
                 }

@@ -21,12 +21,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import de.dhbw.heidenheim.schuetz.simplenavigation.ui.theme.SimpleNavigationTheme
 
 @Composable
-fun SettingsScreenContent(navController: NavController) {
+fun SettingsScreenContent() {
     var darkModeEnabled by remember { mutableStateOf(false) }
 
     Column(
@@ -44,11 +42,11 @@ fun SettingsScreenContent(navController: NavController) {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        Row (
+        Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text (text = "Dark Mode")
+            Text(text = "Dark Mode")
             Switch(
                 checked = darkModeEnabled,
                 onCheckedChange = { darkModeEnabled = it }
@@ -58,11 +56,9 @@ fun SettingsScreenContent(navController: NavController) {
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = {
-                navController.popBackStack()
-            }
+            onClick = { }
         ) {
-            Text (text = "Back to home")
+            Text(text = "Save")
         }
     }
 }
@@ -71,6 +67,6 @@ fun SettingsScreenContent(navController: NavController) {
 @Composable
 fun SettingsPreview() {
     SimpleNavigationTheme {
-        SettingsScreenContent(rememberNavController())
+        SettingsScreenContent()
     }
 }
