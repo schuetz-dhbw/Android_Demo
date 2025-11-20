@@ -12,20 +12,23 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import de.dhbw.heidenheim.schuetz.simplenavigation.ui.theme.SimpleNavigationTheme
 
 @Composable
-fun SettingsScreenContent() {
-    var darkModeEnabled by remember { mutableStateOf(false) }
+fun SettingsScreenContent(
+    viewModel: SettingsViewModel = hiltViewModel()
+) {
+    val darkModeEnabled by viewModel.darkModeEnabled.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier
@@ -42,23 +45,15 @@ fun SettingsScreenContent() {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        Row(
+        Row (
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text(text = "Dark Mode")
+            Text (text = "Dark Mode")
             Switch(
                 checked = darkModeEnabled,
-                onCheckedChange = { darkModeEnabled = it }
+                onCheckedChange = { viewModel.setDarkMode(it) }
             )
-        }
-
-        Spacer(modifier = Modifier.height(32.dp))
-
-        Button(
-            onClick = { }
-        ) {
-            Text(text = "Save")
         }
     }
 }
